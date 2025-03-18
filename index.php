@@ -1,18 +1,20 @@
 <?php
-$rentals = [
-    ["Fortuner", 1000000, "fortuner.jpg"],
-    ["Creta", 900000, "creta.jpg"],
-    ["CRV", 700000, "crv.jpg"]
+// Array yang berisi daftar jenis gedung dan harganya
+$gedung = [
+    ["VIP", 1000000, "vip.jpg"],
+    ["Ballroom", 900000, "Ballroom.jpg"],
+    ["Outdoor", 700000, "outdoor.jpg"]
 ];
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rental Kami</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8"> <!-- Menentukan karakter encoding -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsif pada perangkat mobile -->
+    <title>Lima Rasa - Landing page</title> <!-- Judul halaman -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Import CSS Bootstrap -->
     <style>
+        /* Styling untuk kartu produk */
         .product-card {
             text-align: center;
             padding: 15px;
@@ -38,9 +40,10 @@ $rentals = [
     </style>
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Rental Kami</a>
+            <a class="navbar-brand" href="#">Lima Rasa</a> <!-- Logo -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,96 +56,93 @@ $rentals = [
         </div>
     </nav>
 
-    <div id="carouselExampleCaptions" class="carousel slide">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/fortuner.jpg" class="d-block w-100" alt="Fortuner">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Fortuner</h5>
-            <p>Rp. 1.000.000 /malam</p>
-          </div>
+    <!-- Hero Section -->
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="img/heros.jpg" alt="Gambar Lima Rasa" class="img-fluid rounded shadow"> <!-- Gambar utama -->
+            </div>
+            <div class="col-md-6 text-black">
+                <h1 class="fw-bold">Lima Rasa</h1>
+                <p>Menciptakan Perpaduan Sempurna dalam Setiap Hidangan, Menghadirkan Kenikmatan yang Tak Terlupakan.</p>
+                <a href="pesan.php" class="btn btn-primary">Pesan Sekarang</a> <!-- Tombol pemesanan -->
+            </div>
         </div>
-        <div class="carousel-item">
-          <img src="img/creta.jpg" class="d-block w-100" alt="Creta">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Creta</h5>
-            <p>Rp. 900.000</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="img/crv.jpg" class="d-block w-100" alt="CRV">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>CRV</h5>
-            <p>Rp. 700.000</p>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
+    <hr>
 
+    <!-- Daftar Produk -->
     <div class="container mt-5">
         <section id="produk">
-            <h2 class="text-center">Jenis Mobil</h2>
+            <h2 class="text-center">Jenis Gedung Resto</h2>
             <div class="row">
-                <?php foreach ($rentals as $rental) { ?>
+                <?php foreach ($gedung as $g) { ?> <!-- Perulangan untuk menampilkan gedung -->
                 <div class="col-md-4">
                     <div class="product-card">
-                        <img src="img/<?= $rental[2] ?>" alt="<?= $rental[0] ?>">
-                        <h5 class="mt-2"> <?= $rental[0] ?> </h5>
-                        <h5 class="mt-2">Rp <?= $rental[1]?></h5>
+                        <img src="img/<?= $g[2] ?>"> <!-- Gambar gedung -->
+                        <h5 class="mt-2"> <?= $g[0] ?> </h5> <!-- Nama gedung -->
+                        <h5 class="mt-2">Rp <?= $g[1]?></h5> <!-- Harga gedung -->
                     </div>
                 </div>
                 <?php } ?>
             </div>
         </section>
     </div>
-
-    <div class="pesan-btn-container">
+    <!-- <div class="pesan-btn-container">
         <a href="pesan.php" class="btn btn-lg btn-success">Pesan Sekarang</a>
-    </div>
+    </div> -->
 
-    <div class="container mt-4 text-center">
-    <h3>Video Kolesi kami Fortuner</h3>
-    <video width="100%" controls>
-        <source src="vid/fortuner.mp4" type="video/mp4">
+    <br><h3 class="text-center">Reviewer Resto kami</h3><br>
+<div class="video-container">
+    <video controls>
+        <source src="vid/videoresto.mp4" type="video/mp4">
         Browser Anda tidak mendukung tag video.
     </video>
 </div>
 
+<style>
+    .video-container {
+        width: 100%;
+        max-width: 640px; /* Lebar lebih kecil */
+        height: 360px; /* Sesuai rasio 16:9 */
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Biar video tetap bagus */
+    }
+</style>
+
+
+    <!-- Tentang Kami -->
     <div class="container mt-5">
         <section id="tentang">
             <div class="card shadow-lg">
                 <div class="card-body text-center">
                     <h2 class="card-title">Tentang Kami</h2>
-                    <p class="card-text">Selamat datang di <strong>Rental Kami</strong>, penyedia layanan rental terpercaya yang siap memenuhi kebutuhan transportasi Anda.</p>
-                    <p class="card-text">Kami berlokasi di <strong>Jalan Flamboyan III</strong>, dengan berbagai pilihan kendaraan yang nyaman, terawat, dan siap digunakan untuk perjalanan bisnis, wisata, atau keperluan pribadi.</p>
-                    <p class="card-text">Kami selalu mengutamakan kepuasan pelanggan dengan menyediakan layanan profesional, harga kompetitif, serta kemudahan dalam proses penyewaan.</p>
+                    <p class="card-text">Menyediakan Pembookingan Resto Mewah.</p>
                     <hr>
                     <h5>Hubungi Kami</h5>
                     <p><strong>📍 Alamat:</strong> Jalan Flamboyan III</p>
-                    <p><strong>📞 Telepon:</strong> <a href="tel:+62895383875089">+62895383875089</a></p>
-                    <p><strong>📧 Email:</strong> <a href="mailto:rentalkami@gmail.com">rentalkami@gmail.com</a></p>
+                    <p><strong>📞 Telepon:</strong> <a href="tel:+6258746312345">+6258746312345</a></p>
+                    <p><strong>📧 Email:</strong> <a href="mailto:LimaRasa@gmail.com">LimaRasa@gmail.com</a></p>
                 </div>
             </div>
         </section>
     </div>
 
+    <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p>&copy; 2025 Rental.</p>
+        <p>&copy; 2025 Lima Rasa All Right Reserved.</p>
     </footer>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
