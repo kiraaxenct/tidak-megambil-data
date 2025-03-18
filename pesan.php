@@ -1,40 +1,37 @@
 <?php
-    // Daftar mobil beserta harga sewanya per hari
-    $rentals = [
-        ["Fortuner", 1000000, "fortuner.jpg"],
-        ["Creta", 900000, "creta.jpg"],
-        ["CRV", 700000, "crv.jpg"]
+    // Daftar jenis gedung beserta harga sewanya per hari dan gambar representatif
+    $gedung = [
+        ["VIP", 1000000, "vip.jpg"],
+        ["Ballroom", 900000, "Ballroom.jpg"],
+        ["Outdoor", 700000, "outdoor.jpg"]
     ];
 
+    // Inisialisasi variabel default untuk form
+    $pilih_gedung = $gedung[0][0]; // Default jenis gedung pertama
+    $pilih_harga = $gedung[0][1]; // Default harga gedung pertama
+    $catering = false; // Default catering tidak dipilih
+    $durasi = ""; // Durasi string
+    $total_bayar = 0; // Total pembayaran awal adalah 0
+    $errors = []; // Array untuk menampung pesan error
 
-     // Inisialisasi variabel default
-     $pilih_mobil = $rentals[0][0];
-     $pilih_harga = $rentals[0][1];
-     $supir = false;
-     $durasi = '';
-     $total_bayar = 0;
-     $errors = [];
- 
-
-    // Mengecek apakah form telah dikirim (dengan metode POST)
+    // Mengecek apakah form telah dikirim dengan metode POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Validasi input
-        // Mengambil mobil yang dipilih dari form, jika tidak ada input, default ke mobil pertama dalam daftar
-        $pilih_mobil = $_POST['car'] ?? $rentals[0][0];  
+        // Mengambil jenis gedung yang dipilih dari form atau default
+        $pilih_gedung = $_POST['restaurant'] ?? $gedung[0][0];  
 
-        // Mendapatkan harga mobil yang dipilih dari array berdasarkan nama mobil
-        $pilih_harga = array_column($rentals, 1, 0)[$pilih_mobil];  
+        // Mendapatkan harga berdasarkan pilihan gedung
+        $pilih_harga = array_column($gedung, 1, 0)[$pilih_gedung];  
 
-        // Mengecek apakah checkbox supir dipilih (true jika dipilih, false jika tidak)
-        $supir = isset($_POST['supir']);  
+        // Mengecek apakah checkbox catering dipilih
+        $catering = isset($_POST['catering']);  
 
-        // Mengambil input durasi sewa, jika kosong default ke string kosong
+        // Mengambil durasi sewa dari input form
         $durasi = $_POST['durasi'] ?? '';  
 
-        // Mengambil nomor identitas dari form, jika kosong default ke string kosong
+        // Mengambil nomor identitas dari input form
         $identitas = $_POST['identitas'] ?? '';  
 
-        // Validasi: Durasi harus berupa angka
+        // Validasi: Durasi harus berupa angka dan lebih dari 0
         if (!is_numeric($durasi)) {  
             $errors[] = "Durasi harus berupa angka lebih dari 0";  
         }
@@ -44,64 +41,59 @@
             $errors[] = "Identitas harus berupa angka";  
         }
 
-        
         // Validasi: Nomor identitas harus 16 digit angka
-        // strlen untuk menghitung jumlah karakter yang diinputkan pada input dengan name identitas
         if (strlen($_POST['identitas']) !== 16) {
             $errors[] = "Nomor Identitas harus 16 digit angka.";
         }
 
-        // Jika tidak ada error validasi, hitung total pembayaran
+        // Jika tidak ada error, hitung total pembayaran
         if (empty($errors)) {
-            // Menghitung biaya sewa mobil total berdasarkan durasi
-            $total_harga_mobil = $pilih_harga * $durasi;
+            // Menghitung total harga sewa berdasarkan durasi
+            $total_harga_gedung = $pilih_harga * $durasi;
 
-            // Memberikan diskon 10% jika durasi sewa 3 hari atau lebih
-            $diskon = ($durasi >= 3) ? 0.1 * $total_harga_mobil : 0;
+            // Memberikan diskon 10% jika sewa 3 hari atau lebih
+            $diskon = ($durasi >= 3) ? 0.1 * $total_harga_gedung : 0;
 
-            // Menghitung biaya tambahan untuk supir jika dipilih (Rp 100.000 per hari)
-            $biaya_supir = $supir ? 100000 * $durasi : 0;
+            // Menghitung biaya tambahan catering (Rp 100.000 per hari jika dipilih)
+            $biaya_catering = $catering ? 100000 * $durasi : 0;
 
-            // Menghitung total pembayaran setelah dikurangi diskon dan ditambah biaya supir
-            $total_bayar = $total_harga_mobil - $diskon + $biaya_supir;
+            // Menghitung total pembayaran akhir
+            $total_bayar = $total_harga_gedung - $diskon + $biaya_catering;
         }
 
-        if (isset($_POST['simpan'])) { // Mengecek apakah tombol "Simpan" telah ditekan
-            $nama = $_POST['nama']; // Mengambil input nama dari form
-            $identitas = $_POST['identitas']; // Mengambil input nomor identitas dari form
-            $gender = $_POST['gender']; // Mengambil input jenis kelamin dari form
-            $car = $_POST['car']; // Mengambil input jenis mobil yang dipilih dari form
-            $check = $supir ? 'Ya' : 'Tidak'; // Mengecek apakah pengguna memilih opsi supir
+        // Menyimpan data pemesanan jika tombol "Simpan" ditekan
+        if (isset($_POST['simpan'])) {
+            $nama = $_POST['nama'];
+            $identitas = $_POST['identitas'];
+            $gender = $_POST['gender'];
+            $restaurant = $_POST['restaurant'];
+            $check = $catering ? 'Ya' : 'Tidak'; // Konversi catering ke teks
         
-            // Membuat array untuk menyimpan detail pesanan
+            // Array menyimpan detail pesanan
             $pesanan = [
                 "Nama" => $nama,
                 "Nomor Identitas" => $identitas,
                 "Jenis Kelamin" => $gender,
-                "Jenis Mobil" => $car,
-                "Supir" => $check,
+                "Jenis Gedung" => $restaurant,
+                "Catering" => $check,
                 "Durasi" => $durasi,
                 "Diskon" => $diskon,
-                "Total Bayar" => number_format($total_bayar, 0, ',', '.') // Format angka untuk tampilan lebih rapi
+                "Total Bayar" => number_format($total_bayar, 0, ',', '.')
             ];
-        
-            // Menyimpan pesanan ke dalam sesi agar data tetap tersimpan
-            $_SESSION['pesanan'][] = $pesanan;
-        
-            // Membuat string detail pesanan untuk ditampilkan dalam alert
+                
+            // Membuat string detail pesanan untuk alert
             $detail_pesanan = "Pesanan Berhasil!\n\n";
-            foreach ($pesanan as $key => $value) { // Looping untuk menyusun detail pesanan
-                $detail_pesanan .= "$key: $value\n"; // Menambahkan setiap item pesanan ke dalam string
+            foreach ($pesanan as $key => $value) {
+                $detail_pesanan .= "$key: $value\n";
             }
         
-            // Menampilkan alert dengan detail pesanan dan mengarahkan kembali ke halaman utama
+            // Menampilkan alert dan mengarahkan kembali ke halaman utama
             echo "<script>
                 alert(`$detail_pesanan`);
                 window.location.href = 'index.php';
             </script>";
-            exit(); // Menghentikan eksekusi kode setelah redirect
+            exit();
         }
-        
     }
 ?>
 <!DOCTYPE html>
@@ -109,16 +101,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Form Pemesanan</title>
+    <title>Lima Rasa - Form Pemesanan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
         <div class="card">
             <div class="card-header bg-dark text-white text-center">
-                <h5>Form Pemesanan</h5>
+                <h3>Form Pemesanan</h3>
             </div>
             <div class="card-body">
+                <!-- Menampilkan error jika ada -->
                 <?php if ($errors) { ?>
                     <div class="alert alert-danger">
                         <ul>
@@ -127,6 +120,7 @@
                     </div>
                 <?php } ?>
 
+                <!-- Form input pemesanan -->
                 <form method="POST">
                     <input type="text" class="form-control mb-3" name="nama" placeholder="Nama Pemesan" value="<?= $_POST['nama'] ?? '' ?>" required>
                     
@@ -138,15 +132,14 @@
                     
                     <input type="text" class="form-control mb-3" name="identitas" placeholder="Nomor Identitas (16 digit)" value="<?= $_POST['identitas'] ?? '' ?>" required>
                     
-                    <select class="form-select mb-3" name="car" onchange="this.form.submit()">
-                        <?php foreach  ($rentals as $indexarray => $nilai) { ?>
-                            <option value="<?= $nilai[0] ?>" <?= ($nilai[0] === $pilih_mobil) ? 'selected' : '' ?>>
+                    <select class="form-select mb-3" name="restaurant" onchange="this.form.submit()">
+                        <?php foreach ($gedung as $nilai) { ?>
+                            <option value="<?= $nilai[0] ?>" <?= ($nilai[0] === $pilih_gedung) ? 'selected' : '' ?>>
                                 <?= $nilai[0] ?>
                             </option>
-                        <?php }?>
+                        <?php } ?>
                     </select>
-                   
-                   
+                    
                     <input type="text" class="form-control mb-3" name="harga" value="<?= number_format($pilih_harga, 0, ',', '.') ?>" readonly>
                     
                     <input type="date" class="form-control mb-3" name="tanggal" value="<?= $_POST['tanggal'] ?? '' ?>" required>
@@ -154,17 +147,20 @@
                     <input type="number" class="form-control mb-3" name="durasi" placeholder="Durasi Sewa (hari)" value="<?= $durasi ?>" required>
                     
                     <div class="mb-3">
-                        <input class="form-check-input" type="checkbox" name="supir" <?= $supir ? 'checked' : '' ?>> Termasuk Supir (Rp 100.000/hari)
+                        <input class="form-check-input" type="checkbox" name="catering" <?= $catering ? 'checked' : '' ?>> Termasuk catering (Rp 100.000/hari)
                     </div>
 
-                    <input type="text" class="form-control mb-3" value="<?= $total_bayar ? number_format($total_bayar, 0, ',', '.') : '' ?>" placeholder="Total Bayar" readonly>
-                    
                     <button type="submit" class="btn btn-primary">Hitung Total</button>
-                    <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
-                    <button type="reset" class="btn btn-danger">Cancel</button>
+                    <button type="submit" name="simpan" class="btn btn-success">Simpan</button>
+                    <a href="index.php" class="btn btn-danger">Cancel</a>
                 </form>
             </div>
         </div>
     </div>
+    <style>
+        body{
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
 </body>
 </html>
