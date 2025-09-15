@@ -1,0 +1,20 @@
+<?php
+ function greeting()
+{
+    echo "halo dunia
+    <br>Selamat siang, nafis<hr>";
+
+    return 10; //$greeting = 10
+}
+echo greeting(); //echo $greeting  
+echo "<br><hr>";
+//menghitung volume kubus
+function hvk($sisi)
+{
+    $vk = $sisi * $sisi * $sisi;
+
+    echo "volume kubus adalah $vk<hr>";
+}
+
+hvk(8);
+?>
