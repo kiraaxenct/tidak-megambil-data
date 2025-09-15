@@ -1,4 +1,5 @@
 <?php
+echo "<h1>Contoh function</h1>";
  function greeting()
 {
     echo "halo dunia
@@ -8,6 +9,8 @@
 }
 echo greeting(); //echo $greeting  
 echo "<br><hr>";
+
+echo "<h2>Menghitung volume kubus</h2>";
 //menghitung volume kubus
 function hvk($sisi)
 {
@@ -17,4 +20,38 @@ function hvk($sisi)
 }
 
 hvk(8);
+
+echo "<h2>Menghitung luas persegi panjang</h2>";
+//menghitung luas persegi panjang
+function hlpp($panjang, $lebar)
+{
+    $luaspp = $panjang * $lebar;
+
+    return $luaspp; // $hlpp = $panjang * $lebar
+}
+
+    echo "luas persegi panjang adalah " .  hlpp(10,8);
+    echo "<br><hr>";
+
+echo "<h2>Menghitung volume balok</h2>";
+//menghitung volume balok
+function mvb($panjang, $lebar, $tinggi)
+{
+    $volumeb = $panjang * $lebar *$tinggi;
+
+    return $volumeb;
+}   
+    echo "volume balok adalah " . mvb(10,5,4);
+
+echo "<h2>Menghitung luas permukaan balok</h2>";
+//menghitung luas permukaan balok
+function mlpb($panjang, $lebar, $tinggi)
+{
+    $luaspb = 2* (($panjang * $lebar) + ($panjang * $tinggi) + ($lebar * $tinggi));
+
+    return $luaspb;
+}
+
+echo "luas permukaan balok adalah " . mlpb(7,10,24);
+
 ?>
