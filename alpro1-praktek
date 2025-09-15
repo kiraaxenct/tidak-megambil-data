@@ -1,0 +1,52 @@
+<?php
+// Praktek 1 Nama
+echo "Hi<br>
+    nafis<br><hr>";
+
+$usia = 19;
+$prodi = "D3 Sistem Informasi";
+
+echo "$usia<br><hr> $prodi<br><hr>";
+
+//menghitung luas panjang * lebar
+echo "<h2>Menghitung luas panjang * lebar</h2>";
+$panjang = 10; //input
+$lebar = 20; //input
+
+$luas = $panjang * $lebar; 
+
+echo "Panjang =  $panjang<br>";
+echo "Lebar =  $lebar<br>";
+echo "Luas dari panjang $panjang dan lebar $lebar adalah $luas <br><hr>"; //output
+
+//menghitung luas segitiga
+echo "<h2>Menghitung luas segitiga</h2>";
+$alas = 10;
+$tinggi = 8;
+
+$luas = 0.5 * $alas * $tinggi;
+
+echo "Alas =  $alas<br>";
+echo "Tinggi =  $tinggi<br>";
+echo "Luas segitiga adalah $luas<hr>"  ;
+
+//menghitung luas lingkaran
+echo "<h2>Menghitung luas lingkaran</h2>";
+$jari = 7;
+$phi = 3.14;
+
+$luas = $phi * $jari * $jari;
+
+echo "Jari-jari =  $jari<br>";
+echo "Phi =  $phi<br>";
+echo "luas lingkaran dengan jari-jari $jari adalah $luas cm2<br><hr>";
+
+//menghitung volume kubus
+echo "<h2>Menghitung volume kubus</h2>";
+
+$sisi = 5;
+$volume = $sisi * $sisi * $sisi;
+
+echo "Sisi = $sisi<br   >";
+echo "jumlah volume dengan sisi $sisi adalah $volume cm";
+?> 
