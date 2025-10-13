@@ -1,0 +1,68 @@
+<?php
+function hhb($kode, $ukuran) {
+    $merk = "";
+    $harga = 0;
+
+    if ($kode == 1) {
+        $merk = "IMP";
+        if ($ukuran == "S") {
+            $harga = 200000;
+        } elseif ($ukuran == "M") {
+            $harga = 220000;
+        } else {
+            $harga = 250000;
+        }
+
+    } elseif ($kode == 2) {
+        $merk = "Prada";
+        if ($ukuran == "S") {
+            $harga = 150000;
+        } elseif ($ukuran == "M") {
+            $harga = 160000;
+        } else {
+            $harga = 170000;
+        }
+
+    } elseif ($kode == 3) {
+        $merk = "Gucci";
+        if ($ukuran == "S") {
+            $harga = 200000;
+        } elseif ($ukuran == "M") {
+            $harga = 250000;
+        } else {
+            $harga = 200000;
+        }
+
+    } elseif ($kode == 4) {
+        $merk = "Louis Vuitton";
+        if ($ukuran == "S") {
+            $harga = 300000;
+        } elseif ($ukuran == "M") {
+            $harga = 350000;
+        } else {
+            $harga = 350000;
+        }
+
+    } elseif ($kode == 5) {
+        $merk = "Kick Denim";
+        if ($ukuran == "S") {
+            $harga = 100000;
+        } elseif ($ukuran == "M") {
+            $harga = 120000;
+        } else {
+            $harga = 130000;
+        }
+
+    } else {
+        echo "Kode baju salah!";
+    }
+
+    return "Kode Baju: $kode<br>
+            Merk Baju: $merk<br>
+            Ukuran: $ukuran<br>
+            Harga: Rp " . number_format($harga, 0, ',', '.');
+}
+
+echo "<h3>Program Penentuan Harga Baju (Nested If dengan Function)</h3>";
+echo hhb(3, "M");
+?>
