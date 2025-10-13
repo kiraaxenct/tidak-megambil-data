@@ -1,0 +1,29 @@
+function hna($k, $p, $t, $ut, $ua) {
+    return ($k*0.1) + ($p*0.1) + ($t*0.2) + ($ut*0.25) + ($ua*0.35);
+}
+
+
+function nilaiHuruf($angka) {
+    if ($angka >= 80) {
+        return "A";
+    } elseif ($angka >= 71) {
+        return "AB";
+    } elseif ($angka >= 66) {
+        return "B";
+    } elseif ($angka >= 61) {
+        return "BC";
+    } elseif ($angka >= 56) {
+        return "C";
+    } elseif ($angka >= 41) {
+        return "D";
+    } else {
+        return "E";
+    }
+}
+
+$nilaiAkhir = hna(75, 75, 75, 80, 75);
+
+// hasil
+echo "Nilai akhir: $nilaiAkhir</p>";
+echo "Nilai huruf: " . nilaiHuruf($nilaiAkhir) . "</p>";
+?>
