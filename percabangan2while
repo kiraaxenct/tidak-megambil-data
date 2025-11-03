@@ -51,5 +51,34 @@ function pemangkatan($angka, $pangkat)
 }
 
 pemangkatan(3, 4); 
+
+function faktorial($angka)
+{
+    $i = $angka;
+    $hasil = 1;
+
+    while ($i >= 1) {
+        $hasil *= $i;
+        $i--;
+    }
+
+    echo "Faktorial dari " . $angka . " = " . $hasil;
+}
+
+
+faktorial(5); 
+
+    function ganjil($awal, $akhir)
+{
+    $i = ($awal % 2 == 0) ? $awal + 1 : $awal;
+
+    while ($i <= $akhir)
+    {
+        echo $i . " ";
+        $i += 2; 
+    }
+}
+
+ganjil(2, 35);
 ?>
 
