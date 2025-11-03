@@ -1,1 +1,55 @@
 
+<?php
+function cd($awal, $akhir) {
+    $step = $awal < $akhir ? 1 : -1;
+    while ($awal != $akhir + $step) {
+        echo $awal . "<br>";
+        $awal += $step;
+    }
+}
+
+cd(10, 1);
+echo "<hr>";
+function countdown($awal, $akhir)
+{
+    $i = $awal;
+    while($i >= $akhir)
+    {
+        echo $i . " ";
+        $i--;
+    }
+}
+countdown(17,3);
+
+function faktorial($angka)
+{
+    $i = $angka;
+    $hasil = 1;
+
+    while ($i >= 1) {
+        $hasil *= $i;
+        $i--;
+    }
+
+    echo "Faktorial dari " . $angka . " = " . $hasil;
+}
+
+
+faktorial(5); 
+
+function pemangkatan($angka, $pangkat)
+{
+    $i = 1;
+    $hasil = 1;
+
+    while ($i <= $pangkat) {
+        $hasil *= $angka;
+        $i++;
+    }
+
+    echo $angka . " pangkat " . $pangkat . " = " . $hasil;
+}
+
+pemangkatan(3, 4); 
+?>
+
